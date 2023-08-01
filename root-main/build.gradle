@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'java'
+}
+
+version = '1.0.2'
+group = 'org.gradle.samples'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.5')
+	implementation 'org.projectlombok:lombok:1.18.22'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
+	implementation 'org.springframework.boot:spring-boot-starter'
+
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.6.14.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//ssdevelopmentOnly 'org.springframework.boot:spring-boot-devtools'
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testImplementation ('junit:junit:4.13')
+	//stImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	implementation 'org.jsoup:jsoup:1.14.3'
+}
+
+tasks.named('test', Test) {
+	useJUnitPlatform()
+}

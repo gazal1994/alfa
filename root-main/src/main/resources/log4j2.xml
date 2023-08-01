@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingRandomAccessFile name="SYSTEM" fileName="../../log"
+                                 filePattern="../../log/system-%d{yyyy-MM-dd}.%i.log.gz">
+            <PatternLayout>
+                <pattern>%d %-5p [%t] %c{1} %x - %m{nolookups}%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="log" maxDepth="1">
+                    <IfFileName glob="system-*.log.gz">
+                        <IfAny>
+                            <IfAccumulatedFileSize exceeds="1024 MB" />
+                            <IfAccumulatedFileCount exceeds="30" />
+                        </IfAny>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>%d %-5p [%t] %c{1} %x - %m{nolookups}%n</pattern>
+            </PatternLayout>
+        </Console>
+
+    </Appenders>
+    <Loggers>
+
+        <Root level="info">
+            <AppenderRef ref="SYSTEM"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+
+    </Loggers>
+</Configuration>

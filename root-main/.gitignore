@@ -1,0 +1,5 @@
+.gradle/
+nohup.*
+build/*
+log/*.*
+log/**/*.*
